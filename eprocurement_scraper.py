@@ -13,15 +13,22 @@ last_page_number = 161
 base_url = "https://eproc.karnataka.gov.in"
 access_url = "https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam"
 
-for page_number in range(15,100):
+for page_number in range(3,161):
 	request_session = requests.Session()
 	html_src = ""
 	if page_number == 1:
 		html_src = request_session.get("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam")
 	else:
 		html_src = request_session.get("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam")
-		payload = {'eprocTenders:_link_hidden_': 'eprocTenders:dataScrollerIdidx3'+str(page_number), 'eprocTenders:dataScrollerId': 'idx'+str(page_number)}
+		#soup2 = BeautifulSoup(html_src.content)
+		#ips = soup2.findAll(name="jsf_sequence")
+		#jsf_sequence = str(ips)
+		#print jsf_sequence
+
+		payload = {'eprocTenders:_link_hidden_': 'eprocTenders:dataScrollerIdidx'+str(page_number), 'eprocTenders:dataScrollerId': 'idx'+str(page_number)}
 		payload["eprocTenders:butSearch"]='Search'
+		payload["eprocTenders_SUBMIT"] = 1
+		payload["jsf_sequence"] = 2
 		html_src = requests.post(access_url, data=payload)
 
 	#print html_src.cookies
