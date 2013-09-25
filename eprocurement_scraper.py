@@ -10,13 +10,13 @@ cur = con.cursor()
 base_url = "https://eproc.karnataka.gov.in"
 access_url = "https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam"
 jsf_sequence = 1
-#previous to 10 we had errors
 
-page_number = 25
+page_number = 1
 
 print "START of PageNumber"+str(page_number)
 request_session = requests.Session()
 html_src = ""
+print "============ Starting the new page "+str(page_number)+"============"
 if page_number == 1:
 	html_src = request_session.get("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam")
 else:
@@ -38,8 +38,7 @@ else:
 	html_src = requests.post("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam;jsessionid="+str(session_cookie), data=payload)
 	#print html_src.content
 	#break
-print "============ Starting the new page "+str(page_number)+"============"
-print "Cookie for the session ="+str(session_cookie)
+	print "Cookie for the session ="+str(session_cookie)
 
 soup = BeautifulSoup(html_src.content)
 tables = soup.findAll(id="eprocTenders:browserTableEprocTenders:tbody_element")
