@@ -58,7 +58,7 @@ for i in range(1,40):
 
 		#Get the basic information
 		data = {"Department_Location":str(row[1].contents[0]), "Tender_Number":str(row[2].contents[0]), "Tender_Title":str(row[3].contents[0]),"Tender_Type":str(row[4].contents[0]),"Category":str(row[5].contents[0]) }
-		data['error'] = 'no'
+		data['error'] = 'no,'
 
 		if len(row[6].contents) > 0:
 			data["Sub_Category"] = str(row[6].contents[0])
@@ -102,7 +102,7 @@ for i in range(1,40):
 				#print notice_info_content
 		except:
 			print "ERROR WHILE GETTING NOTICE"		
-			data['error']='yes'
+			data['error']='yes-info'
 		data["Notice_Inviting_Tender_Details"] =str(notice_info_content)
 
 		try:
@@ -131,7 +131,7 @@ for i in range(1,40):
 						print type_of_the_document
 		except:
 			print "ERROR WHILE GETTING DOCUMENTS"		
-			data['error']='yes'
+			data['error']=data['error']+",yes-doc"
 		# Saving data:
 		cur.execute('INSERT INTO tender (Tender_Number, Department_Location, Tender_Title, Tender_Type, Category, Sub_Category, Estimated_Value, NIT_Published_Date, Last_Date_for_Bid_Submission,notice_url,download_docs_url,Notice_Inviting_Tender_Details, error) VALUES (:Tender_Number, :Department_Location, :Tender_Title, :Tender_Type, :Category, :Sub_Category, :Estimated_Value, :NIT_Published_Date, :Last_Date_for_Bid_Submission, :notice_url, :download_docs_url, :Notice_Inviting_Tender_Details, :error)', data)
 		con.commit()
