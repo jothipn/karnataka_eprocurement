@@ -10,8 +10,11 @@ cur = con.cursor()
 base_url = "https://eproc.karnataka.gov.in"
 access_url = "https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam"
 jsf_sequence = 1
-page_number = 6
+#previous to 10 we had errors
 
+page_number = 25
+
+print "START of PageNumber"+str(page_number)
 request_session = requests.Session()
 html_src = ""
 if page_number == 1:
@@ -133,6 +136,5 @@ for i in range(1,40):
 		# Saving data:
 		cur.execute('INSERT INTO tender (Tender_Number, Department_Location, Tender_Title, Tender_Type, Category, Sub_Category, Estimated_Value, NIT_Published_Date, Last_Date_for_Bid_Submission,notice_url,download_docs_url,Notice_Inviting_Tender_Details, error) VALUES (:Tender_Number, :Department_Location, :Tender_Title, :Tender_Type, :Category, :Sub_Category, :Estimated_Value, :NIT_Published_Date, :Last_Date_for_Bid_Submission, :notice_url, :download_docs_url, :Notice_Inviting_Tender_Details, :error)', data)
 		con.commit()
-
-
 con.close()
+print "END of PageNumber"+str(page_number)
