@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import sys
 import sqlite3 as lite
 import requests
 from BeautifulSoup import BeautifulSoup
@@ -12,6 +12,11 @@ access_url = "https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_l
 jsf_sequence = 1
 
 page_number = 1
+try:
+	page_number = int(sys.argv[1])
+except:
+	print "Running for page number 1"
+
 
 print "START of PageNumber"+str(page_number)
 request_session = requests.Session()
