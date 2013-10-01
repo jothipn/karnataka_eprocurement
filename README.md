@@ -1,6 +1,6 @@
 ### Karnataka eProcurement Tenders
 
-This is the project for scraing the [Karnataka eProcurement Tenders](https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam). 
+This is the project for scraping [Karnataka eProcurement Tenders](https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam). 
 Scraping is done on daily basis and the SQLite DB is updated. THe SQLite DB in this git repo is just for developement and doesnt have the latest data.
 
 The latest DB [Updated Daily] is available for download at [OpenBangalore](http://docs.openbangalore.org.s3.amazonaws.com/procurements.sqlite.tar.lzma)
@@ -48,7 +48,9 @@ TABLE "document"
 10. If you want it as csv, right click on table and export table
 
 ### Coming soon
-I will code a simple RSS feed to subscribe to latest tenders 
+- Code a simple RSS feed to subscribe to latest tenders 
+- Simple UI to explore the data
+- Download the documents along with scraping info
 
 ### Authors
 <table>
