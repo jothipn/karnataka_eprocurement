@@ -1,0 +1,15 @@
+common:
+  database: "sqlite:///./procurements_prod.sqlite"
+  prefix: export/
+  format: csv
+
+exports:
+
+  - query: "SELECT * FROM document"
+    filename: "document.csv"
+    format: csv
+
+  - query: "SELECT * FROM tender"
+    filename: "tender.csv"
+    format: csv
+
