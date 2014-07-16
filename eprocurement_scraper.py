@@ -3,7 +3,8 @@ import sys
 import sqlite3 as lite
 import requests
 from BeautifulSoup import BeautifulSoup
-final_page_number = 31
+final_page_number = 184
+import time
 try:
 	final_page_number = int(sys.argv[1])
 except:
@@ -12,7 +13,7 @@ except:
 
 
 for page_number in range(1,final_page_number+1):
-	con = lite.connect('procurements.sqlite')
+	con = lite.connect('procurements_prod.sqlite')
 	cur = con.cursor()
 	base_url = "https://eproc.karnataka.gov.in"
 	access_url = "https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam"
@@ -23,10 +24,11 @@ for page_number in range(1,final_page_number+1):
 	request_session = requests.Session()
 	html_src = ""
 	print "============ Starting the new page "+str(page_number)+"============"
+	time.sleep(3)
 	if page_number == 1:
-		html_src = request_session.get("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam")
+		html_src = request_session.get("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam", verify=False)
 	else:
-		html_src = request_session.get("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam")
+		html_src = request_session.get("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam", verify=False)
 		#soup2 = BeautifulSoup(html_src.content)
 		#ips = soup2.findAll(name="jsf_sequence")
 		#jsf_sequence = str(ips)
@@ -41,7 +43,7 @@ for page_number in range(1,final_page_number+1):
 		#print html_src.cookies
 		session_cookie = html_src.cookies['JSESSIONID']
 
-		html_src = requests.post("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam;jsessionid="+str(session_cookie), data=payload)
+		html_src = requests.post("https://eproc.karnataka.gov.in/eprocurement/common/eproc_tenders_list.seam;jsessionid="+str(session_cookie), data=payload,  verify=False)
 		#print html_src.content
 		#break
 		print "Cookie for the session ="+str(session_cookie)
@@ -50,6 +52,7 @@ for page_number in range(1,final_page_number+1):
 	tables = soup.findAll(id="eprocTenders:browserTableEprocTenders:tbody_element")
 	tender_table = tables[0]
 	for i in range(1,40):
+		time.sleep(1)
 		if getattr(tables[0].contents[i], 'name', None) == 'tr':
 			row = tables[0].contents[i].contents
 			#Primary key for the insertion is Tender_Number

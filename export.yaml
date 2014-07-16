@@ -5,11 +5,11 @@ common:
 
 exports:
 
-  - query: "SELECT * FROM document"
-    filename: "document.csv"
+  - query: "SELECT distinct * FROM document"
+    filename: "procurements_document.csv"
     format: csv
 
-  - query: "SELECT * FROM tender"
-    filename: "tender.csv"
+  - query: "SELECT distinct Tender_Number ,Department_Location, Tender_Title, Tender_Type , Category , Sub_Category,  Estimated_Value, NIT_Published_Date, Last_Date_for_Bid_Submission, notice_url , download_docs_url  FROM tender"
+    filename: "procurements_tender.csv"
     format: csv
 
